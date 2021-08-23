@@ -18,9 +18,9 @@ app.use(express.json({ extended: false }));
 
 //routes
 
-//const xxRouter = require('./routes/xx');
+//const exercisesRouter = require('./routes/exercises');
 
-//app.use('/xx', xxRouter);
+//app.use('/exercises', exercisesRouter);
 // Logger
 app.use(logger('dev'));
 
