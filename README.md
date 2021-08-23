@@ -1,8 +1,8 @@
 # Bank-Project
 cd _AdminSide/FrontEnd
-yarn
-yarn start
+npm install
+npm start
 
 cd _ClientSide/FrontEnd
-yarn
-yarn start
+npm install
+npm start
