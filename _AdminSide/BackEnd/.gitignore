@@ -2,7 +2,7 @@
 .git/
 .idea/
 yarn.lock
-node_modules/
+/node_modules
 /nbproject/private/
 /package.json
 /package-lock.json
