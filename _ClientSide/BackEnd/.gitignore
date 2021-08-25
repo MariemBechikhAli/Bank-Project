@@ -7,4 +7,9 @@ yarn.lock
 /nbproject/private/
 
 /package-lock.json
+<<<<<<< HEAD
 /package.json
+=======
+
+/node_modules
+>>>>>>> Mariem
