@@ -55,7 +55,7 @@ class SidebarContent extends Component {
               mode="inline">
 
               <MenuItemGroup key="main" className="gx-menu-group" title={<IntlMessages id="Gestion du site"/>}>
-              <SubMenu key="dashboard" className={this.getNavStyleSubMenuClass(navStyle)}
+              <SubMenu key="Gestion Personnels" className={this.getNavStyleSubMenuClass(navStyle)}
                          title={"Gestion Personnels"}>
                   <Menu.Item key="/users">
                     <Link to="/users/users-list">
@@ -72,7 +72,7 @@ class SidebarContent extends Component {
                  
                   
                 </SubMenu>
-                <SubMenu key="dashboard" className={this.getNavStyleSubMenuClass(navStyle)}
+                <SubMenu key="Gestion des evennements" className={this.getNavStyleSubMenuClass(navStyle)}
                          title={"Gestion des evennements"}>
                   <Menu.Item key="main/dashboard/crypto">
                     <Link to="/main/dashboard/crypto">
@@ -89,7 +89,7 @@ class SidebarContent extends Component {
                  
                   
                 </SubMenu>
-                <SubMenu key="dashboard" className={this.getNavStyleSubMenuClass(navStyle)}
+                <SubMenu key="Gestion des Hotels" className={this.getNavStyleSubMenuClass(navStyle)}
                          title={"Gestion des Hotels"}>
                   <Menu.Item key="main/dashboard/crypto">
                     <Link to="/main/dashboard/crypto">
