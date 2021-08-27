@@ -26,22 +26,23 @@ const columns = [
         title: 'Nom et Prenom',
         dataIndex: 'name',
         key: 'name',
-        width: 150,
+        width: 10,
         render: text => <span className="gx-link">{text}</span>,
     }, {
         title: 'Date de naissance',
         dataIndex: 'age',
         key: 'age',
-        width: 70,
+        width: 10,
     }, {
         title: 'Telephone',
         dataIndex: 'phone',
         key: 'phone',
+        width: 10,
     }, , {
         title: 'RIB',
         dataIndex: 'RIB',
         key: 'RIB',
-        width: 100,
+        width: 10,
     },{
         title: 'Agence',
         dataIndex: 'Agence',
@@ -59,11 +60,11 @@ const columns = [
             <span>
 
                 <span className="gx-link">Supprimer</span>
-                <Divider type="vertical" />
+                <Divider type="horizontal" />
                 <span className="gx-link">Modifier</span>
-                <Divider type="vertical" />
+                <Divider type="horizontal" />
                 <span className="gx-link">Desactiver</span>
-                <Divider type="vertical" />
+                <Divider type="horizontal" />
 
 
 
@@ -177,12 +178,23 @@ class UsersList extends React.Component {
                             {...formItemLayout}
                             label="CIN"
                             hasFeedback
-                            value={this.state.contentAnswer}
-                            onChange={this.onChangeContentAnswer}
+                            value={this.state.CIN}
+                            onChange={this.onChangeCIN}
                         >
                             {getFieldDecorator("CIN", {
                                 rules: [{ required: false }]
                             })(<TextArea placeholder="CIN" />)}
+                        </FormItem>
+                        <FormItem
+                            {...formItemLayout}
+                            hasFeedback
+                            label="E-mail"
+                            value={this.state.contentCode}
+                            onChange={this.onChangeContentCode}
+                        >
+                            {getFieldDecorator("E-mail", {
+                                rules: [{ required: false }]
+                            })(<TextArea placeholder="E-mail" />)}
                         </FormItem>
                         <FormItem
                             {...formItemLayout}
@@ -194,6 +206,17 @@ class UsersList extends React.Component {
                             {getFieldDecorator("Nom et Prenom", {
                                 rules: [{ required: false }]
                             })(<TextArea placeholder="Nom et Prenom" />)}
+                        </FormItem>
+                        <FormItem
+                            {...formItemLayout}
+                            hasFeedback
+                            label="Poste occupé"
+                            value={this.state.contentCode}
+                            onChange={this.onChangeContentCode}
+                        >
+                            {getFieldDecorator("Poste occupé", {
+                                rules: [{ required: false }]
+                            })(<TextArea placeholder="Poste occupé" />)}
                         </FormItem>
                     </Form>
                     <Button type="primary" htmlType="submit" onClick={this.onSubmit}>
