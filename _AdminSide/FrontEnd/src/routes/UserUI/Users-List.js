@@ -211,8 +211,8 @@ class UsersList extends React.Component {
                             {...formItemLayout}
                             hasFeedback
                             label="Poste occupé"
-                            value={this.state.contentCode}
-                            onChange={this.onChangeContentCode}
+                            value={this.state.Poste}
+                            onChange={this.onChangePoste}
                         >
                             {getFieldDecorator("Poste occupé", {
                                 rules: [{ required: false }]
