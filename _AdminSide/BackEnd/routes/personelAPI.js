@@ -65,6 +65,7 @@ router.put('/update-personel/:id', async(req,res)=>{
             res.status(500).json({message: 'Server error!'});
         }else{
             req.body.Password = hash;
+            req.body.Valide = true;
         };
         res.json(updatePersonel);
     })
