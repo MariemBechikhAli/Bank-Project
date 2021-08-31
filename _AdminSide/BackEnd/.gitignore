@@ -1,4 +1,11 @@
-package.json
-package-lock.json
-node_modules
+
+# Created by .ignore support plugin (hsz.mobi)
+.git/
+.vscode/
+.idea/
 .env
+
+node_modules/
+/nbproject/private/
+config/default.json
+
