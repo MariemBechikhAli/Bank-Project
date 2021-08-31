@@ -30,7 +30,7 @@ app.get('/', async (req, res) => {
 app.use('/adminSide', Personel);
 app.use('/adminSide', Hotel);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6000;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 

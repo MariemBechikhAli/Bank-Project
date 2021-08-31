@@ -28,7 +28,7 @@ app.get('/', async (req, res) => {
 
 app.use('/clientSide', Reservation);
 
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 6001;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 
