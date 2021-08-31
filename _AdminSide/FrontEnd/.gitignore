@@ -1,8 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
 .git/
+.vscode/
 .idea/
-yarn.lock
+
 node_modules/
 /nbproject/private/
-/package.json
+config/default.json
 /package-lock.json
+/package.json
