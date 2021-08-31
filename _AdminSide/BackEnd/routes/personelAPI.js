@@ -6,7 +6,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const nodemailer = require("nodemailer");
-const env = require('dotenv')
+const env = require('dotenv');
 //ADD PERSONEL
 router.post('/addPersonel', async (req, res) => {
     const PersonelFound = await Personel.findOne({ Email: req.body.Email })

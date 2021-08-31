@@ -21,12 +21,14 @@ app.use(express.json({ extended: false }));
 
 //routes
 const Personel = require('./routes/personelAPI');
+const Hotel = require('./routes/hotelAPI')
 
 app.get('/', async (req, res) => {
     res.json({message: "Hello World!"});
 });
 
-app.use('', Personel);
+app.use('/adminSide', Personel);
+app.use('/adminSide', Hotel);
 
 const port = process.env.PORT || 6000;
 
