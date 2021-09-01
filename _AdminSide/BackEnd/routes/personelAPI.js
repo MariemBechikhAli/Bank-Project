@@ -13,7 +13,7 @@ router.post('/addPersonel', async (req, res) => {
     if(!PersonelFound){
         bcrypt.hash(req.body.CIN, saltRounds, async (error, hash)=>{
             if (error) {
-                res.status(500).json({message: 'Server error!'});
+                res.status(500).json({message: 'Server error!!!!!'});
             }else{
                 req.body.Password = hash;
                 const transporter = nodemailer.createTransport({
