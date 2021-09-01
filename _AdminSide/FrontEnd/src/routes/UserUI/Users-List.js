@@ -1,6 +1,7 @@
 import React from "react";
-import { Button, Card, Divider, Form, Icon, Input, Table } from "antd";
-
+import { Button, Card, Tag, Divider, Form, Icon, Input, Row, Table } from "antd";
+import { CheckCircleOutlined, } from '@ant-design/icons';
+import axios from "axios";
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const formItemLayout = {
@@ -23,7 +24,7 @@ const columns = [
         width: 8,
         render: text => <span className="gx-link">{text}</span>,
     }, {
-        title: 'Nom et Prenom',
+        title: 'Nom complet',
         dataIndex: 'name',
         key: 'name',
         width: 10,
@@ -43,49 +44,60 @@ const columns = [
         dataIndex: 'RIB',
         key: 'RIB',
         width: 10,
-    },{
+    }, {
         title: 'Agence',
         dataIndex: 'Agence',
         key: 'Agence',
     }, {
         title: 'Etat du compte',
-        dataIndex: 'State',
         key: 'State',
-    }, 
-     {
+        render: text => <Tag icon={<CheckCircleOutlined />} color="#87d068">Valide</Tag>
+    },
+    {
         title: 'Action',
         key: 'action',
-        width: 260,
         render: (text, record) => (
-            <span>
-
-                <span className="gx-link">Supprimer</span>
-                <Divider type="horizontal" />
-                <span className="gx-link">Modifier</span>
-                <Divider type="horizontal" />
-                <span className="gx-link">Desactiver</span>
-                <Divider type="horizontal" />
+            <Divider orientation="left">
+                <Button type="danger"> <i className="icon icon-trash" /> </Button>
+                <Button type="primary"> <i className="icon icon-edit" /> </Button>
+                <Button type="dashed"> <i className="icon icon-check-square" /></Button>
 
 
-
-            </span>
-        ),
+            </Divider>),
     }];
 
-const data = [];
-for (let i = 1; i <= 1; i++) {
-    data.push({
-        key: i,
-        name: 'John Brown',
-        age: `24/12/1997`,
-        CIN: `12345678`,
-        phone: `000000`,
-        Agence: `STB Raoued`,
-        RIB: `123-15455555555`,
-        State: `Activé`,
-        description: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
-    });
-}
+
+const Personnel = props => (
+ 
+  <tr class="ant-table-row ant-table-row-level-0" >
+    <td class="ant-table-row-cell-break-word" width="90"  align="center" >
+            <span class="gx-link">{props.personnel.CIN}</span>
+          </td>
+   
+    <td class="ant-table-row-cell-break-word"  align="center" >{props.personnel.NOM}</td>
+    <td class="ant-table-row-cell-break-word"  align="center" >{props.personnel.Post}</td>
+    <td class="ant-table-row-cell-break-word"  align="center" >{props.personnel.Numero_telephonique}</td>
+    <td class="ant-table-row-cell-break-word" width="90"  align="center" >{props.personnel.RIB}</td>
+    <td class="ant-table-row-cell-break-word" width="90" align="center" >{props.personnel.Agence}</td>
+    <td  align="center" >
+      <div>
+       { props.personnel.Valide  ?    
+         <Tag  color="#87d068"> Valide</Tag>
+        :
+        <Tag  color="#EC7063"> Non-valide</Tag>}
+      </div>
+    
+       </td>
+    <td  align="center" > <Divider orientation="left">
+                <Button type="danger"> <i className="icon icon-trash" /> </Button>
+                <Button type="primary"> <i className="icon icon-edit" /> </Button>
+                <Button type="dashed"> <i className="icon icon-check-square" /></Button>
+
+
+            </Divider></td>
+  </tr>
+);
+
 
 const expandedRowRender = record => <p>{record.description}</p>;
 const title = () => 'Here is title';
@@ -95,6 +107,11 @@ const scroll = { y: 240 };
 const pagination = { position: 'bottom' };
 
 class UsersList extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { personnels: [] };
+    }
     state = {
         bordered: false,
         loading: false,
@@ -104,44 +121,26 @@ class UsersList extends React.Component {
         title: undefined,
         showHeader,
         footer: undefined,
-        rowSelection: {},
         scroll: undefined,
-    };
 
-    handleToggle = (prop) => {
-        return (enable) => {
-            this.setState({ [prop]: enable });
-        };
-    };
+      
 
-    handleSizeChange = (e) => {
-        this.setState({ size: e.target.value });
     };
-
-    handleExpandChange = (enable) => {
-        this.setState({ expandedRowRender: enable ? expandedRowRender : undefined });
-    };
-
-    handleTitleChange = (enable) => {
-        this.setState({ title: enable ? title : undefined });
-    };
-
-    handleHeaderChange = (enable) => {
-        this.setState({ showHeader: enable ? showHeader : false });
-    };
-
-    handleFooterChange = (enable) => {
-        this.setState({ footer: enable ? footer : undefined });
-    };
-
-    handleRowSelectionChange = (enable) => {
-        this.setState({ rowSelection: enable ? {} : undefined });
-    };
-
-    handleScollChange = (enable) => {
-        this.setState({ scroll: enable ? scroll : undefined });
-    };
-
+    componentDidMount() {
+        axios
+            .get('http://localhost:5001/adminSide/personel-list/')
+            .then(response => {
+                this.setState({ personnels: response.data });
+            })
+            .catch(error => {
+                console.log("error !! " + error);
+            });
+    }
+    personnelList() {
+        return this.state.personnels.map(currentpersonnel => {
+            return <Personnel personnel={currentpersonnel} key={currentpersonnel._id} />;
+        })
+    }
     handlePaginationChange = (e) => {
         const { value } = e.target;
         this.setState({
@@ -162,7 +161,7 @@ class UsersList extends React.Component {
         const { getFieldDecorator } = this.props.form;
         const state = this.state;
         return (
-            <Card title="Liste de Personnel">
+            <Card title="Liste de Personnels">
                 <div className="components-table-demo-control-bar">
                 </div>
                 <Button
@@ -199,13 +198,13 @@ class UsersList extends React.Component {
                         <FormItem
                             {...formItemLayout}
                             hasFeedback
-                            label="Nom et Prenom"
+                            label="Nom complet"
                             value={this.state.contentCode}
                             onChange={this.onChangeContentCode}
                         >
-                            {getFieldDecorator("Nom et Prenom", {
+                            {getFieldDecorator("Nom complet", {
                                 rules: [{ required: false }]
-                            })(<TextArea placeholder="Nom et Prenom" />)}
+                            })(<TextArea placeholder="Nom complet" />)}
                         </FormItem>
                         <FormItem
                             {...formItemLayout}
@@ -223,9 +222,82 @@ class UsersList extends React.Component {
                         Ajouter
                     </Button>
                 </div>
-                <Table className="gx-table-responsive"
-                    {...this.state} columns={columns} dataSource={data} />
-            </Card>
+                <div>
+                <table className="table">
+                <thead class="ant-table-thead">
+        <tr>
+          <th class="ant-table-row-cell-break-word">
+            <span class="ant-table-header-column">
+              <div>
+                <span class="ant-table-column-title" align="center">CIN</span>
+                <span class="ant-table-column-sorter"></span>
+              </div>
+            </span>
+          </th>
+          <th class="ant-table-row-cell-break-word">
+            <span class="ant-table-header-column">
+              <div>
+                <span class="ant-table-column-title" align="center">Nom complet</span>
+                <span class="ant-table-column-sorter"></span>
+              </div>
+            </span>
+          </th>
+          <th class="ant-table-row-cell-break-word">
+            <span class="ant-table-header-column">
+              <div>
+                <span class="ant-table-column-title" align="center">Poste</span>
+                <span class="ant-table-column-sorter"></span>
+              </div>
+            </span>
+          </th>
+          <th class="ant-table-row-cell-break-word">
+            <span class="ant-table-header-column">
+              <div>
+                <span class="ant-table-column-title" align="center">Telephone</span>
+                <span class="ant-table-column-sorter"></span>
+              </div>
+            </span>
+          </th>
+          <th class="ant-table-row-cell-break-word">
+            <span class="ant-table-header-column">
+              <div>
+                <span class="ant-table-column-title" align="center">RIB</span>
+                <span class="ant-table-column-sorter"></span>
+              </div>
+            </span>
+          </th>
+          <th class="">
+            <span class="ant-table-header-column">
+              <div>
+                <span class="ant-table-column-title" align="center">Agence</span>
+                <span class="ant-table-column-sorter"></span>
+              </div>
+            </span>
+          </th>
+          <th class="">
+            <span class="ant-table-header-column">
+              <div>
+                <span class="ant-table-column-title" align="center">Etat du compte</span>
+                <span class="ant-table-column-sorter"></span>
+              </div>
+            </span>
+          </th>
+          <th class="ant-table-row-cell-last" align="center">
+            <span class="ant-table-header-column">
+              <div>
+                <span class="ant-table-column-title" align="center">Action</span>
+                <span class="ant-table-column-sorter"></span>
+              </div>
+            </span>
+          </th>
+        </tr>
+      </thead>
+          <tbody>
+            { this.personnelList() }
+          </tbody>
+        </table>
+                </div>
+               </Card>
         );
     }
 }
