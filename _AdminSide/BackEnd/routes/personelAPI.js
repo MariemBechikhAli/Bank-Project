@@ -26,7 +26,7 @@ router.post('/addPersonel', async (req, res) => {
 
                 let mailOptions = {
                     from: 'stbank.test@gmail.com',
-                    to: 'aymenbouazra994@gmail.com',
+                    to: req.body.Email,
                     subject: "STB account login", 
                     html: `
                         <h1 style="color:blue;">Login to your account with the link bellow:</h1>
