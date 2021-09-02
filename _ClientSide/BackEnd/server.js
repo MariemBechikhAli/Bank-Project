@@ -21,12 +21,15 @@ app.use(express.json({ extended: false }));
 
 //routes
 const Reservation = require('./routes/reservationAPI');
+const User = require('./routes/userApi');
 
 app.get('/', async (req, res) => {
     res.json({message: "Hello World!"});
 });
 
+
 app.use('/clientSide', Reservation);
+app.use('/clientSide', User);
 
 const port = process.env.PORT || 6001;
 
