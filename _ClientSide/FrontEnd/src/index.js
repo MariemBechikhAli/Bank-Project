@@ -13,6 +13,8 @@ import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import RegisterPage from "views/examples/RegisterPage.js";
 import EditProfile from "views/examples/EditProfile.js"
+import SignInPage from "views/examples/SignIn";
+
 
 // others
 
@@ -40,7 +42,11 @@ ReactDOM.render(
         path="/edit-profile"
         render={(props) => <EditProfile {...props} />}
       />
-      <Redirect to="/register-page" />
+       <Route
+        path="/Sign-in"
+        render={(props) => <SignInPage {...props} />}
+      />
+      <Redirect to="/Sign-in" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

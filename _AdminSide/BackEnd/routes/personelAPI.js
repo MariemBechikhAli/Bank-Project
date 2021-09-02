@@ -13,7 +13,7 @@ router.post('/addPersonel', async (req, res) => {
     if(!PersonelFound){
         bcrypt.hash(req.body.CIN, saltRounds, async (error, hash)=>{
             if (error) {
-                res.status(500).json({message: 'Server error!'});
+                res.status(500).json({message: 'Server error!!!!!'});
             }else{
                 req.body.Password = hash;
                 const transporter = nodemailer.createTransport({
@@ -26,7 +26,9 @@ router.post('/addPersonel', async (req, res) => {
 
                 let mailOptions = {
                     from: 'stbank.test@gmail.com',
+
                     to: req.body.Email,
+
                     subject: "STB account login", 
                     html: `
                         <h1 style="color:blue;">Login to your account with the link bellow:</h1>

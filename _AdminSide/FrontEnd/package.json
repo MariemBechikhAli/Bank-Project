@@ -7,7 +7,8 @@
     "amcharts3": "^3.21.13",
     "antd": "^3.11.6",
     "antd-theme-webpack-plugin": "^1.1.6",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
+    "cors": "^2.8.5",
     "draftjs-to-html": "^0.8.4",
     "firebase": "^8.10.0",
     "install": "^0.12.2",
@@ -61,6 +62,7 @@
     "test": "react-app-rewired --env=jsdom"
   },
   "devDependencies": {
+    "@ant-design/icons": "^4.6.4",
     "add": "^2.0.6",
     "babel-plugin-import": "^1.8.0",
     "customize-cra": "^0.2.10",
