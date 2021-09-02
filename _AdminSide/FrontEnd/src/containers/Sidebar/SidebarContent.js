@@ -55,23 +55,15 @@ class SidebarContent extends Component {
               mode="inline">
 
               <MenuItemGroup key="main" className="gx-menu-group" title={<IntlMessages id="Gestion du site"/>}>
-              <SubMenu key="Gestion Personnels" className={this.getNavStyleSubMenuClass(navStyle)}
+              <Menu.Item  key="Gestion Personnels" className={this.getNavStyleSubMenuClass(navStyle)}
                          title={"Gestion Personnels"}>
-                  <Menu.Item key="/users">
+                  
                     <Link to="/users/users-list">
                       <i className="icon icon-crypto"/>
-                      <IntlMessages id="Liste de Personnels"/>
+                      <IntlMessages id="Gestion Personnels"/>
                     </Link>
-                  </Menu.Item>
-                  <Menu.Item key="main/dashboard/crm">
-                    <Link to="/main/dashboard/crm">
-                      <i className="icon icon-crm"/>
-                      <IntlMessages id="Ajouter un Personnel"/>
-                    </Link>
-                  </Menu.Item>
-                 
                   
-                </SubMenu>
+                </Menu.Item>
                 <SubMenu key="Gestion des evennements" className={this.getNavStyleSubMenuClass(navStyle)}
                          title={"Gestion des evennements"}>
                   <Menu.Item key="main/dashboard/crypto">
