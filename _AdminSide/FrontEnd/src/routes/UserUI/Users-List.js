@@ -1,7 +1,6 @@
-import React from "react";
+import React, { Component } from 'react';
 import { Button, Card, Tag, Divider, Form, Icon, Input, AutoComplete,
-  notification, message } from "antd";
-import { CheckCircleOutlined, } from '@ant-design/icons';
+  notification,  message, Popconfirm } from "antd";
 import axios from "axios";
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -21,16 +20,15 @@ const formItemLayout = {
 
 const Personnel = props => (
 
-  <tr class="ant-table-row ant-table-row-level-0" >
-    <td class="ant-table-row-cell-break-word" width="90" align="center" >
+  <tr className="ant-table-row ant-table-row-level-0" >
+    <td className="ant-table-row-cell-break-word" width="90" align="center" >
       <span class="gx-link">{props.personnel.CIN}</span>
     </td>
-
-    <td class="ant-table-row-cell-break-word" align="center"  width="150">{props.personnel.NOM}</td>
-    <td class="ant-table-row-cell-break-word" align="center"   width="100">{props.personnel.Post}</td>
-    <td class="ant-table-row-cell-break-word" align="center" >{props.personnel.Numero_telephonique}</td>
-    <td class="ant-table-row-cell-break-word" width="90" align="center" >{props.personnel.RIB}</td>
-    <td class="ant-table-row-cell-break-word" width="90" align="center" >{props.personnel.Agence}</td>
+    <td className="ant-table-row-cell-break-word" align="center"  width="150">{props.personnel.NOM}</td>
+    <td className="ant-table-row-cell-break-word" align="center"   width="100">{props.personnel.Post}</td>
+    <td className="ant-table-row-cell-break-word" align="center" >{props.personnel.Numero_telephonique}</td>
+    <td className="ant-table-row-cell-break-word" width="90" align="center" >{props.personnel.RIB}</td>
+    <td className="ant-table-row-cell-break-word" width="90" align="center" >{props.personnel.Agence}</td>
     <td align="center" >
       <div>
         {props.personnel.Valide ?
@@ -40,8 +38,17 @@ const Personnel = props => (
       </div>
 
     </td>
-    <td align="center" > <Divider orientation="left">
-      <Button type="danger" shape="round " > <i className="icon icon-trash" /> </Button>
+    <td align="center" >
+       <Divider orientation="left">
+       <Popconfirm title="Voulez vous vraiment supprimer ce compte?" 
+       onConfirm={() => {
+        props.deletePersonnel(props.personnel._id);
+      }} onCancel={cancel} okText="Oui"cancelText="Non">
+
+        <Button type="danger" shape="round ">
+           <i className="icon icon-trash" /> 
+            </Button>
+            </Popconfirm>
       <Button type="primary" shape="round " > <i className="icon icon-edit" /> </Button>
       <Button type="dashed" shape="round "> <i className="icon icon-check-square" /></Button>
 
@@ -50,7 +57,12 @@ const Personnel = props => (
   </tr>
 );
 
-class UsersList extends React.Component {
+
+ const cancel= e => {
+  console.log(e);
+  message.error('Vous avez cliqué sur "Non"');
+}
+class UsersList extends Component {
   constructor(props) {
     super(props);
     this.deletePersonnel = this.deletePersonnel.bind(this);
@@ -89,16 +101,6 @@ class UsersList extends React.Component {
       Post: e.target.value
     });
   }
-  handleChange = (value) => {
-    this.setState({
-  //    Email: value.target.value,
-      dataSource: !value || value.indexOf('@') >= 0 ? [] : [
-        `${value}@gmail.com`,
-        `${value}@yahoo.com`,
-      ],
-    
-    });
-  };
   componentDidMount() {
     axios
       .get('http://localhost:5001/adminSide/personel-list/')
@@ -111,7 +113,9 @@ class UsersList extends React.Component {
   }
   personnelList() {
     return this.state.personnels.map(currentpersonnel => {
-      return <Personnel personnel={currentpersonnel} key={currentpersonnel._id} />;
+      return <Personnel personnel={currentpersonnel} key={currentpersonnel._id} 
+      deletePersonnel={this.deletePersonnel}
+      />;
     })
   }
   openNotificationWithIcon = type => {
@@ -119,14 +123,6 @@ class UsersList extends React.Component {
       message: "Personnel ajoué avec succés"
     });
   };
-  deletePersonnel(id) {
-    axios.delete("http://localhost:5001/adminSide/delete-personel/" + id)
-      .then(response => { console.log(response.data) });
-
-    this.setState({
-      //   personnels: this.state.personnels.filter(el => el._id !== id)
-    })
-  }
   handlePaginationChange = (e) => {
     const { value } = e.target;
     this.setState({
@@ -161,20 +157,25 @@ class UsersList extends React.Component {
     axios.post('http://localhost:5001/adminSide/addPersonel',PERS)
     .then(res => console.log(res.data));
     this.openNotificationWithIcon("success");
-     window.location= '/users/users-list/';
+     window.location.reload();
   }
-
-
 });
     
   }
+   deletePersonnel = id => {
+    axios.delete("http://localhost:5001/adminSide/delete-personel/" +id)
+      .then(response => { console.log(response.data) });
+      message.success('Compte supprimé avec succés');
+      this.setState({
+        personnels: this.state.personnels.filter(el => el._id !== id)
+      });
+   }
   render() {
     const { getFieldDecorator } = this.props.form;
     const state = this.state;
     return (
       <Card title="Liste de Personnels">
-        <div className="components-table-demo-control-bar">
-        </div>
+        
         <Button
           type="dashed"
           className="gx-link gx-btn-link gx-ml-2"
@@ -263,69 +264,69 @@ class UsersList extends React.Component {
         </div>
         <div>
           <table className="table">
-            <thead class="ant-table-thead">
+            <thead className="ant-table-thead">
               <tr>
-                <th class="ant-table-row-cell-break-word">
-                  <span class="ant-table-header-column">
+                <th className="ant-table-row-cell-break-word">
+                  <span className="ant-table-header-column">
                     <div>
-                      <span class="ant-table-column-title" align="center">CIN</span>
-                      <span class="ant-table-column-sorter"></span>
+                      <span className="ant-table-column-title" align="center">CIN</span>
+                      <span className="ant-table-column-sorter"></span>
                     </div>
                   </span>
                 </th>
-                <th class="ant-table-row-cell-break-word">
-                  <span class="ant-table-header-column">
+                <th className="ant-table-row-cell-break-word">
+                  <span className="ant-table-header-column">
                     <div>
-                      <span class="ant-table-column-title" align="center">Nom complet</span>
-                      <span class="ant-table-column-sorter"></span>
+                      <span className="ant-table-column-title" align="center">Nom complet</span>
+                      <span className="ant-table-column-sorter"></span>
                     </div>
                   </span>
                 </th>
-                <th class="ant-table-row-cell-break-word">
-                  <span class="ant-table-header-column">
+                <th className="ant-table-row-cell-break-word">
+                  <span className="ant-table-header-column">
                     <div>
-                      <span class="ant-table-column-title" align="center">Poste</span>
-                      <span class="ant-table-column-sorter"></span>
+                      <span className="ant-table-column-title" align="center">Poste</span>
+                      <span className="ant-table-column-sorter"></span>
                     </div>
                   </span>
                 </th>
-                <th class="ant-table-row-cell-break-word">
-                  <span class="ant-table-header-column">
+                <th className="ant-table-row-cell-break-word">
+                  <span className="ant-table-header-column">
                     <div>
-                      <span class="ant-table-column-title" align="center">Telephone</span>
-                      <span class="ant-table-column-sorter"></span>
+                      <span className="ant-table-column-title" align="center">Telephone</span>
+                      <span className="ant-table-column-sorter"></span>
                     </div>
                   </span>
                 </th>
-                <th class="ant-table-row-cell-break-word">
-                  <span class="ant-table-header-column">
+                <th className="ant-table-row-cell-break-word">
+                  <span className="ant-table-header-column">
                     <div>
-                      <span class="ant-table-column-title" align="center">RIB</span>
-                      <span class="ant-table-column-sorter"></span>
+                      <span className="ant-table-column-title" align="center">RIB</span>
+                      <span className="ant-table-column-sorter"></span>
                     </div>
                   </span>
                 </th>
-                <th class="">
-                  <span class="ant-table-header-column">
+                <th className="">
+                  <span className="ant-table-header-column">
                     <div>
-                      <span class="ant-table-column-title" align="center">Agence</span>
-                      <span class="ant-table-column-sorter"></span>
+                      <span className="ant-table-column-title" align="center">Agence</span>
+                      <span className="ant-table-column-sorter"></span>
                     </div>
                   </span>
                 </th>
-                <th class="">
-                  <span class="ant-table-header-column">
+                <th className="">
+                  <span className="ant-table-header-column">
                     <div>
-                      <span class="ant-table-column-title" align="center">Etat du compte</span>
-                      <span class="ant-table-column-sorter"></span>
+                      <span className="ant-table-column-title" align="center">Etat du compte</span>
+                      <span className="ant-table-column-sorter"></span>
                     </div>
                   </span>
                 </th>
-                <th class="ant-table-row-cell-last" align="center">
-                  <span class="ant-table-header-column">
+                <th className="ant-table-row-cell-last" align="center">
+                  <span className="ant-table-header-column">
                     <div>
-                      <span class="ant-table-column-title" align="center">Action</span>
-                      <span class="ant-table-column-sorter"></span>
+                      <span className="ant-table-column-title" align="center">Action</span>
+                      <span className="ant-table-column-sorter"></span>
                     </div>
                   </span>
                 </th>
