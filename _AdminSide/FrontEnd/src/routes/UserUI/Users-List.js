@@ -253,11 +253,14 @@ class UsersList extends Component {
               })(<Input placeholder="Poste occupé" style={{ width: '50%' }} />)}
             </FormItem>
           </Form>
-          <Button type="primary" htmlType="submit" onClick={this.onSubmit}
+     
+          <div class="vertical-center">
+                 <Button type="primary" htmlType="submit" onClick={this.onSubmit}
+          align="center"
           >
             Ajouter
           </Button>
-
+</div>
         </div>
         <div>
           <table className="table">
