@@ -33,8 +33,9 @@ const upload = multer({
 });
 
 //Add Hotel
-router.post('/addHotel', upload.single('Image'), async (req, res) => {
-    await Hotel.create(req.body);
+router.post('/addHotel', async (req, res) => {
+    const createHotel = await Hotel.create(req.body);
+    res.json({message: 'Hotel created!'})
 });
 
 // Get Hotel List

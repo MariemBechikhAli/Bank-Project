@@ -1,17 +1,11 @@
 const mongoose = require('mongoose');
 const Reservation = mongoose.Schema({
     Nom: { type: String, required: true },
-    Prénom: { type: String, required: true },
-    Mail: { type: String, required: true },
-    DerniereReservation: { type: Date, required:true },
+    Prenom: { type: String, required: true },
+    Email: { type: String, required: true },
+    DerniereReservation: { type: String, required:true },
     NombreReservation: { type: Number, required:true},
     Etat: { type: String, default:'Non traitée'},
-    Hotel:[
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "hotel"
-        }
-    ]
 },
     {
         versionKey: false,
