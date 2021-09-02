@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Card, Tag, Divider, Form, Icon, Input, AutoComplete,
-  notification,  message, Popconfirm } from "antd";
+import {
+  Button, Card, Tag, Divider, Form, Icon, Input, AutoComplete,
+  notification, message, Popconfirm
+} from "antd";
 import axios from "axios";
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -24,8 +26,8 @@ const Personnel = props => (
     <td className="ant-table-row-cell-break-word" width="90" align="center" >
       <span class="gx-link">{props.personnel.CIN}</span>
     </td>
-    <td className="ant-table-row-cell-break-word" align="center"  width="150">{props.personnel.NOM}</td>
-    <td className="ant-table-row-cell-break-word" align="center"   width="100">{props.personnel.Post}</td>
+    <td className="ant-table-row-cell-break-word" align="center" width="150">{props.personnel.NOM}</td>
+    <td className="ant-table-row-cell-break-word" align="center" width="100">{props.personnel.Post}</td>
     <td className="ant-table-row-cell-break-word" align="center" >{props.personnel.Numero_telephonique}</td>
     <td className="ant-table-row-cell-break-word" width="90" align="center" >{props.personnel.RIB}</td>
     <td className="ant-table-row-cell-break-word" width="90" align="center" >{props.personnel.Agence}</td>
@@ -39,26 +41,23 @@ const Personnel = props => (
 
     </td>
     <td align="center" >
-       <Divider orientation="left">
-       <Popconfirm title="Voulez vous vraiment supprimer ce compte?" 
-       onConfirm={() => {
-        props.deletePersonnel(props.personnel._id);
-      }} onCancel={cancel} okText="Oui"cancelText="Non">
-
-        <Button type="danger" shape="round ">
-           <i className="icon icon-trash" /> 
-            </Button>
-            </Popconfirm>
-      <Button type="primary" shape="round " > <i className="icon icon-edit" /> </Button>
-      <Button type="dashed" shape="round "> <i className="icon icon-check-square" /></Button>
+      <Divider orientation="left">
+        <Popconfirm title="Voulez vous vraiment supprimer ce compte?"
+          onConfirm={() => {
+            props.deletePersonnel(props.personnel._id);
+          }} onCancel={cancel} okText="Oui" cancelText="Non">
+          <Button type="danger" shape="round " size="small"><i className="icon icon-trash" /></Button>
+        </Popconfirm>
+        <Button type="primary" shape="round " size="small"> <i className="icon icon-edit" /> </Button>
+        <Button type="dashed" shape="round " size="small"> <i className="icon icon-check-square" /></Button>
 
 
-    </Divider></td>
+      </Divider></td>
   </tr>
 );
 
 
- const cancel= e => {
+const cancel = e => {
   console.log(e);
   message.error('Vous avez cliqué sur "Non"');
 }
@@ -80,7 +79,7 @@ class UsersList extends Component {
       Post: ""
     };
   }
- 
+
   onChangeCIN(e) {
     this.setState({
       CIN: e.target.value
@@ -113,8 +112,8 @@ class UsersList extends Component {
   }
   personnelList() {
     return this.state.personnels.map(currentpersonnel => {
-      return <Personnel personnel={currentpersonnel} key={currentpersonnel._id} 
-      deletePersonnel={this.deletePersonnel}
+      return <Personnel personnel={currentpersonnel} key={currentpersonnel._id}
+        deletePersonnel={this.deletePersonnel}
       />;
     })
   }
@@ -141,41 +140,39 @@ class UsersList extends Component {
   };
   onSubmit(e) {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => 
-{
-  console.log("values", values);
-  if (!err) 
-  {
-    const PERS = 
-    {
-      CIN: this.state.CIN,
-      NOM: this.state.NOM,
-      Email: this.state.Email,
-      Post: this.state.Post
-    }
-    console.log(PERS);
-    axios.post('http://localhost:5001/adminSide/addPersonel',PERS)
-    .then(res => console.log(res.data));
-    this.openNotificationWithIcon("success");
-     window.location.reload();
+    this.props.form.validateFields((err, values) => {
+      console.log("values", values);
+      if (!err) {
+        const PERS =
+        {
+          CIN: this.state.CIN,
+          NOM: this.state.NOM,
+          Email: this.state.Email,
+          Post: this.state.Post
+        }
+        console.log(PERS);
+        axios.post('http://localhost:5001/adminSide/addPersonel', PERS)
+          .then(res => console.log(res.data));
+        this.openNotificationWithIcon("success");
+        window.location.reload();
+      }
+    });
+
   }
-});
-    
-  }
-   deletePersonnel = id => {
-    axios.delete("http://localhost:5001/adminSide/delete-personel/" +id)
+  deletePersonnel = id => {
+    axios.delete("http://localhost:5001/adminSide/delete-personel/" + id)
       .then(response => { console.log(response.data) });
-      message.success('Compte supprimé avec succés');
-      this.setState({
-        personnels: this.state.personnels.filter(el => el._id !== id)
-      });
-   }
+    message.success('Compte supprimé avec succés');
+    this.setState({
+      personnels: this.state.personnels.filter(el => el._id !== id)
+    });
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     const state = this.state;
     return (
       <Card title="Liste de Personnels">
-        
+
         <Button
           type="dashed"
           className="gx-link gx-btn-link gx-ml-2"
@@ -203,7 +200,7 @@ class UsersList extends Component {
                     message: "La valeur doit être inférieure à 8 caractères ",
                   }
                 ]
-              })(<Input style={{ width: '50%' }} placeholder="CIN" type="number"/>)}
+              })(<Input style={{ width: '50%' }} placeholder="CIN" type="number" />)}
 
             </FormItem>
 
@@ -215,15 +212,15 @@ class UsersList extends Component {
               onChange={this.onChangeEmail}
             >
               {getFieldDecorator("E-mail", {
-                rules: [{ 
+                rules: [{
                   required: true,
-                message:"Champs obligatoire",
+                  message: "Champs obligatoire",
                 }
-              ]
+                ]
               })(<AutoComplete
                 dataSource={this.state.dataSource}
                 style={{ width: '50%' }}
-             
+
                 placeholder="exemple@exemple.com"
               />)}
             </FormItem>
@@ -236,9 +233,9 @@ class UsersList extends Component {
             >
               {getFieldDecorator("Nom complet", {
                 rules: [{
-                   required: true,
-                  message:"Champs obligatoire",
-                 }]
+                  required: true,
+                  message: "Champs obligatoire",
+                }]
               })(<Input placeholder="Nom complet" style={{ width: '50%' }} />)}
             </FormItem>
             <FormItem
@@ -249,18 +246,18 @@ class UsersList extends Component {
               onChange={this.onChangePoste}
             >
               {getFieldDecorator("Poste occupé", {
-                rules: [{ 
+                rules: [{
                   required: true,
-                  message:"Champs obligatoire",
-                 }]
+                  message: "Champs obligatoire",
+                }]
               })(<Input placeholder="Poste occupé" style={{ width: '50%' }} />)}
             </FormItem>
           </Form>
           <Button type="primary" htmlType="submit" onClick={this.onSubmit}
-            >
+          >
             Ajouter
           </Button>
-          
+
         </div>
         <div>
           <table className="table">
