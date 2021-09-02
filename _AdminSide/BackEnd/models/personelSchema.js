@@ -12,9 +12,9 @@ const Personel = mongoose.Schema({
     Agence: { type: String, default: '' },
     Valide: { type: Boolean, default: false }
 },
-    {
-        versionKey: false,
-        timestamps: true
-    })
+{
+    versionKey: false,
+    timestamps: true
+});
 
 module.exports = mongoose.model('Personel', Personel, 'Personel')
