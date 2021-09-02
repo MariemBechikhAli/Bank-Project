@@ -26,13 +26,7 @@ router.post('/addPersonel', async (req, res) => {
 
                 let mailOptions = {
                     from: 'stbank.test@gmail.com',
-<<<<<<< HEAD
                     to: 'aymenbouazra994@gmail.com',
-=======
-
-                    to: req.body.Email,
-
->>>>>>> 33dcc6da3003c5452ed0cfc15a241018aa3fd921
                     subject: "STB account login", 
                     html: `
                         <h1 style="color:blue;">Login to your account with the link bellow:</h1>
