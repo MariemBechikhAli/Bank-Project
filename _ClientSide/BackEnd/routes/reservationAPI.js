@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const Reservation = require('../models/reservationSchema');
-const Hotel = require('./../../../_AdminSide/BackEnd/models/hotelSchema');
+const Hotel = require('../models/hotelSchema');
 const passport = require('passport');
 const nodemailer = require("nodemailer");
 const env = require('dotenv');
 
 router.post('/add-reservation/:id', async(req,res)=>{
     const hotel = await Hotel.findById(req.params.id);
-    console.log(hotel);
     if(req.body.NombreReservation <= hotel.Places){
         const createReservation = await Reservation.create(req.body);
     const updatedHotel = await Hotel.findByIdAndUpdate(req.params.id,{$push:{Reservations:createReservation._id}},{new:true})
@@ -24,7 +23,10 @@ router.get('/reservation-list', async(req,res)=>{
 });
 
 router.put('/accept-reservation/:id', async(req,res)=>{
-    const acceptReservation = await Reservation.findByIdAndUpdate(req.params.id,[{Etat: true},{"$inc": { Places: -(req.body.NombreReservation) }}],{new: true});
+    console.log(req.params.id);
+    const acceptReservation = await Hotel.findByIdAndUpdate(req.params.id,{"$inc":{Places: - req.body.NombreReservation} },{new: true});
+    const changeEtat = await Reservation.findByIdAndUpdate(req.params.id,{ Etat :true },{new: true});
+    console.log(acceptReservation);
     /* 
         Send Mail about accepting reservation
     */
