@@ -79,6 +79,20 @@ router.get('/logout', (req, res) => {
     res.json({ message: 'Logged out!' })
 });
 
+// update personel
+router.put('/update-personel/:id', async(req,res)=>{
+    const updatePersonel = await Personel.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    bcrypt.hash(req.body.Password, saltRounds, async (error, hash)=>{
+        if (error) {
+            console.log(error);
+            res.status(500).json({message: 'Server error!'});
+        }else{
+            req.body.Password = hash;
+            req.body.Valide = true;
+        };
+        res.json(updatePersonel);
+    })
+});
 
 // Get Personel List
 router.get('/personel-list', async (req, res) => {
