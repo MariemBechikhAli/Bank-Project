@@ -18,19 +18,45 @@ class SignIn extends Component {
     const { showMessage, loader, alertMessage } = this.props;
     return (
       <div className="myreg gx-app-login-wrap">
-        <div style={{ margin: "0 5%", justifyItems: "center" }} className=" ">
-        <Row> <h1 className="mytitle">
-                  Bienvenue Dans
-                  <br />
-                  Votre Espace Personnel
-                </h1></Row>
-                <br />
-                <br />
-                <br />
-        <Row  gutter={[32, 48]}>
-        <Col span={9}>    
-        <div
-                style={{ height: "auto", padding: "2%" }}
+        <div className=" ">
+
+          <Row
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "row"
+            }}>
+            <Col
+              style={{
+                width: "40%",
+                height:"100%",
+                margin: "0"
+              }}>
+              <img
+              
+              width="550px"
+              height="700px"
+                src={land}
+                alt="Bank"
+              />
+            </Col>
+            <Col
+              style={{
+                width: "40%",
+                height:"100%"
+              }}>
+              <Row>
+
+                <h1 
+                style={{
+                  color:"white",
+                  fontWeight:"500"
+                }}
+                >
+                  Bienvenue Dans Votre Espace Personnel  </h1>
+                  </Row>
+              <div
+                style={{ height: "100%", padding: "2%" }}
                 className="gx-app-login-wrap"
               >
                 <div
@@ -41,54 +67,61 @@ class SignIn extends Component {
                     marginRight: "auto"
                   }}
                 >
-                  <div
-                    style={{
-                      backgroundColor: "#28aaeb21",
-                      borderRadius: "30px"
-                    }}
-                    className="gx-app-login-main-content"
-                  >
-                   
-                      <Form >
+                
+
+                    <Form >
                       <br /><br />
-                          <Col align="middle">
+                      <Col align="middle">
 
-                            <Col >
-                              <InputGroup>
-                                <Input placeholder="demo@x.tn" type="text" />
-                                <InputGroupAddon addonType="append">
-                                  <InputGroupText>
-                                    <i aria-hidden={true} className="nc-icon nc-email-85" />
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                              </InputGroup>
-                            </Col>
-                            < br />
-                            <Col >
-                              <InputGroup>
-                                <Input placeholder="12345678" type="password" />
-                                <InputGroupAddon addonType="append">
-                                  <InputGroupText>
-                                    <i aria-hidden={true} className="nc-icon nc-key-25" />
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                              </InputGroup>
-                            </Col>
-                            < br />
+                        <Col >
+                          <InputGroup>
+                            <label
+                            style={{
+                              color:"white"
+                            }}
+                            >
+                              Email
+                            </label>
+                            <Input placeholder="demo@x.tn" type="text" />
+                            <InputGroupAddon addonType="append">
+                              <InputGroupText>
+                                <i aria-hidden={true} className="nc-icon nc-email-85" />
+                              </InputGroupText>
+                            </InputGroupAddon>
+                          </InputGroup>
+                        </Col>
+                        < br />
+                        <Col >
+                          <InputGroup>
+                            <label  style={{
+                              color:"white",
+                              
+                            }}>
+                              Password
+                            </label>
+                            <Input placeholder="Password" type="password" />
+                            <InputGroupAddon addonType="append">
+                              <InputGroupText>
+                                <i aria-hidden={true} className="nc-icon nc-key-25" />
+                              </InputGroupText>
+                            </InputGroupAddon>
+                          </InputGroup>
+                        </Col>
+                        < br />
 
-                          </Col>
-                          <br />
-                          <FormItem>
-                            <Button color="secondary" size="lg" block>
-                              SignIn
-                            </Button>
+                      </Col>
+                      <br />
+                      <FormItem>
+                        <Button color="secondary" size="lg" block>
+                          SignIn
+                        </Button>
 
-                          </FormItem>
-                      
+                      </FormItem>
 
 
-                      </Form>
-                  
+
+                    </Form>
+
                     {loader ? (
                       <div className="gx-loader-view">
 
@@ -99,25 +132,11 @@ class SignIn extends Component {
                       : null}
 
                   </div>
-                </div>
               </div>
-            
-            
-        </Col>
-        <Col  span={9}
-           >
-            
-            <img
-                style={{
-                  width: "60%",
 
-                  borderRadius: "30px"
-                }}
-                src={land}
-                alt="Nature"
-                className="responsive animation center"
-              ></img>
+
             </Col>
+
           </Row>
         </div>
       </div>

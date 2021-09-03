@@ -5,11 +5,3 @@ yarn.lock
 # dependencies
 /node_modules
 /nbproject/private/
-
-/package-lock.json
-<<<<<<< HEAD
-/package.json
-=======
-
-/node_modules
->>>>>>> Mariem
