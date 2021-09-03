@@ -161,8 +161,9 @@ class UsersList extends Component {
   }
   deletePersonnel = id => {
     axios.delete("http://localhost:5001/adminSide/delete-personel/" + id)
-      .then(response => { console.log(response.data) });
-    message.success('Compte supprimé avec succés');
+      .then(response => { console.log(response.data) })
+      .then(response => message.success('Compte supprimé avec succés'))
+  //  message.success('Compte supprimé avec succés');
     this.setState({
       personnels: this.state.personnels.filter(el => el._id !== id)
     });
