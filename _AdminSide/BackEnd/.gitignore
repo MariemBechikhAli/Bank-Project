@@ -1,6 +1,5 @@
 .env
 
-# dependencies
-/node_modules
+node_modules/
 /nbproject/private/
-config/default.json
+config/default.jsons
