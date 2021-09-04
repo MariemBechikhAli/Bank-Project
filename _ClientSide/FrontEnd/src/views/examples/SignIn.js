@@ -30,9 +30,9 @@ class SignIn extends Component {
     });
   }
   onSubmit(){
-    axios.post('http://localhost:5001/adminSide/login',{
-      Email: this.Email,
-      Password: this.Password
+    axios.post('http://localhost:6001/clientSide/login',{
+      Email: this.state.Email,
+      Password: this.state.Password
     })
     .then((res) => {
       if(!res.data.message) {
@@ -41,8 +41,8 @@ class SignIn extends Component {
       }
       else {
         console.log(res.data);
-          this.setLoginState(res.data[0].Email);
-          
+       //   this.setLoginState(res.data[0].Email);
+          window.location='/edit-profile'
       }
       });
     };

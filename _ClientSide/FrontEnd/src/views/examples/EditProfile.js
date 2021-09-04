@@ -2,7 +2,7 @@
  
 import React from "react";
 // plugin that creates slider
-import Slider from "nouislider";
+import land from "../../assets/img/login-image2.jpg";
 
 // reactstrap components
 import {
@@ -15,18 +15,11 @@ import {
   Container,
   Row,
   Col,
-  Form,
-  Radio,
-  Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch,
 } from "reactstrap";
+import "./bg_register.css";
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
-import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
+import { Card } from "antd";
 function EditProfile() {
   React.useEffect(() => {
   });
@@ -36,12 +29,33 @@ function EditProfile() {
   }
   return (
     <>
+    <div className="myreg gx-app-login-wrap">
     <ExamplesNavbar />
-      <ProfilePageHeader />
-      <div className="section section-buttons">
-        <Container>
-          <div className="title">
-            <h3>Veuillez svp completer la configuration de votre compte</h3>
+    <Row
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "row",
+            }}
+          >
+            <Col
+              style={{
+                width: "40%",
+                height: "100%",
+                margin: "0",
+              }}
+            >
+              <img width="550px" height="700px" src={land} alt="Bank" />
+            </Col>
+            <Col   style={{
+                width: "40%",
+                height: "100%",
+                margin: "0",
+              }}>
+    <div >
+
+          <div>
+            <h3>Veuillez completer la configuration de votre compte</h3>
           </div>
           <Col align="middle">
           <Col sm="3">
@@ -141,9 +155,13 @@ function EditProfile() {
           </Col>
           <br />
         
-        </Container>
+    
       </div>
-      <DemoFooter />
+      </Col>
+    
+            </Row>
+            <DemoFooter />
+      </div>
     </>
   );
 }

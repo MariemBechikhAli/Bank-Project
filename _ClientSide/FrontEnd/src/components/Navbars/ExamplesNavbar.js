@@ -94,7 +94,7 @@ function ExamplesNavbar() {
                 href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-examples-navbar"
                 target="_blank"
               >
-                <i className="nc-icon nc-book-bookmark" /> Evanements
+                <i className="nc-icon nc-book-bookmark" /> Evennements
               </NavLink>
             </NavItem>
       
