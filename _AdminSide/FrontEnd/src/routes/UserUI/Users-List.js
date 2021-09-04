@@ -46,10 +46,10 @@ const Personnel = props => (
           onConfirm={() => {
             props.deletePersonnel(props.personnel._id);
           }} onCancel={cancel} okText="Oui" cancelText="Non">
-          <Button type="danger" shape="round " size="small"><i className="icon icon-trash" /></Button>
+          <Button type="danger"  size="small"><i className="icon icon-trash" /></Button>
         </Popconfirm>
-        <Button type="primary" shape="round " size="small"> <i className="icon icon-edit" /> </Button>
-        <Button type="dashed" shape="round " size="small"> <i className="icon icon-check-square" /></Button>
+        <Button type="primary"  size="small"> <i className="icon icon-edit" /> </Button>
+        <Button type="dashed"  size="small"> <i className="icon icon-check-square" /></Button>
 
 
       </Divider></td>
