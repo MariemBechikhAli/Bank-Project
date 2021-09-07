@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "nodemon",
-    "start": "node server.js"
+    "start": "node server.js",
+    "serve": "nodemon server.js"
   },
   "author": "Mariem",
   "license": "ISC",
@@ -24,5 +25,8 @@
     "nodemailer": "^6.6.3",
     "passport": "^0.4.1",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   }
 }
