@@ -9,6 +9,8 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { Icon, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import "./bg_register.css";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import { Card } from "antd";
@@ -23,78 +25,128 @@ class EditProfile extends Component {
     this.onChangeNom = this.onChangeNom.bind(this);
     this.onChangePoste = this.onChangePoste.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeRIB = this.onChangeRIB.bind(this);
+    this.onChangeAgence = this.onChangeAgence.bind(this);
+    this.onChangeNumero_telephonique = this.onChangeNumero_telephonique.bind(this);
+    this.onChangeNbre_enfants = this.onChangeNbre_enfants.bind(this);
+    this.onChangeEtat_matrimoniale = this.onChangeEtat_matrimoniale.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
       CIN: "",
       Email: "",
       NOM: "",
       Post: "",
-Password:""
+      Password: "",
+      RIB: "",
+      Agence: "",
+      Numero_telephonique: "",
+      Nbre_enfants: "",
+      Etat_matrimoniale: "",
     };
   }
   componentDidMount() {
     axios
-    .get (
-      `http://localhost:6001/clientSide/`+ this.props.match.params.id)
+      .get(`http://localhost:6001/clientSide/61376beaf659998b1d5ff740`)
       //,this.props.match.params.id)
-    
-      .then(response => {
+
+      .then((response) => {
         this.setState({
           _id: response.data._id,
           CIN: response.data.CIN,
           Email: response.data.Email,
           NOM: response.data.NOM,
           Post: response.data.Post,
-          Password: response.data.Password
+          Password: response.data.Password,
+          RIB: response.data.RIB,
+          Agence: response.data.Agence,
+          Numero_telephonique: response.data.Numero_telephonique,
+          Nbre_enfants: response.data.Nbre_enfants,
+          Etat_matrimoniale: response.data.Etat_matrimoniale,
         });
-       console.log("data "+response.data);
-     console.log(this.props)
+        console.log("data " + response.data);
+        console.log(this.props);
       })
       .catch(function(error) {
         console.log(error);
       });
-    }
+  }
   onChangeCIN(e) {
     this.setState({
-      CIN: e.target.value
+      CIN: e.target.value,
     });
   }
   onChangeEmail(e) {
     this.setState({
-      Email: e.target.value
+      Email: e.target.value,
     });
   }
   onChangeNom(e) {
     this.setState({
-      NOM: e.target.value
+      NOM: e.target.value,
     });
   }
   onChangePoste(e) {
     this.setState({
-      Post: e.target.value
+      Post: e.target.value,
     });
   }
   onChangePassword(e) {
     this.setState({
-      Password: e.target.value
+      Password: e.target.value,
     });
   }
- 
+  onChangeRIB(e) {
+    this.setState({
+      RIB: e.target.value,
+    });
+  }
+  onChangeAgence(e) {
+    this.setState({
+      Agence: e.target.value,
+    });
+  }
+  onChangeNumero_telephonique(e) {
+    this.setState({
+      Numero_telephonique: e.target.value,
+    });
+  }
+  onChangeNbre_enfants(e) {
+    this.setState({
+      Nbre_enfants: e.target.value,
+    });
+  }
+  onChangeEtat_matrimoniale(e) {
+    this.setState({
+      Etat_matrimoniale: e.target.value,
+    });
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
     const personnel = {
       NOM: this.state.NOM,
-      Email: this.state.Email
+      Email: this.state.Email,
+      CIN: this.state.CIN,
+      Post: this.state.Post,
+      Password: this.state.Password,
+      RIB: this.state.RIB,
+      Agence: this.state.Agence,
+      Numero_telephonique: this.state.Numero_telephonique,
+      Nbre_enfants: this.state.Nbre_enfants,
+      Etat_matrimoniale: this.state.Etat_matrimoniale,
     };
 
     console.log(personnel);
     axios
-      .put("http://localhost:6001/clientSide/update-personel/"+this.props.match.params.id, personnel)
-      .then(res => console.log(res.data));
+      .put(
+        "http://localhost:6001/clientSide/update-personel/61376beaf659998b1d5ff740",
+        personnel
+      )
+      .then((res) => console.log("Updated succssefuly ! " + res.data));
 
-      window.location = "/index";
-    }
+    window.location = "/index";
+  }
   render() {
     return (
       <>
@@ -106,30 +158,16 @@ Password:""
               flexDirection: "row",
             }}
           >
-            <Col
-              style={{
-                width: "40%",
-                height: "100%",
-                margin: "0",
-              }}
-            >
+            <Col style={{ width: "40%", height: "100%", margin: "0" }}>
               <img
-                style={{
-                  borderRadius: "10px",
-                }}
+                style={{ borderRadius: "10px" }}
                 width="550px"
                 height="650px"
                 src={land}
                 alt="Bank"
               />
             </Col>
-            <Col
-              style={{
-                width: "40%",
-                height: "100%",
-                margin: "0",
-              }}
-            >
+            <Col style={{ width: "40%", height: "100%", margin: "0" }}>
               <div>
                 <h1
                   style={{
@@ -151,8 +189,12 @@ Password:""
                   </Col>
                   <Col sm="5">
                     <InputGroup>
-                      <Input placeholder="Demo" type="text"  value={this.state.NOM}  
-                      onChange={this.onChangeNom} />
+                      <Input
+                        placeholder="Demo"
+                        type="text"
+                        value={this.state.NOM}
+                        onChange={this.onChangeNom}
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
                           <i
@@ -173,8 +215,13 @@ Password:""
                   </Col>
                   <Col sm="5">
                     <InputGroup>
-                      <Input placeholder="demo@x.tn" type="text" value={this.state.Email}  
-                      onChange={this.onChangeEmail} />
+                      <Input
+                        placeholder="demo@x.tn"
+                        type="text"
+                        readOnly="true"
+                        value={this.state.Email}
+                        onChange={this.onChangeEmail}
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
                           <i
@@ -195,9 +242,12 @@ Password:""
                   </Col>
                   <Col sm="5">
                     <InputGroup>
-                      <Input type="number"
-                       value={this.state.CIN}  
-                       onChange={this.onChangeCIN} />
+                      <Input
+                        type="number"
+                        readOnly="true"
+                        value={this.state.CIN}
+                        onChange={this.onChangeCIN}
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
                           <i
@@ -213,20 +263,20 @@ Password:""
                 <Row>
                   <Col sm="4">
                     <label style={{ color: "white", fontWeight: "500" }}>
-                     Changer votre mot de passe{" "}
+                      Changer votre mot de passe{" "}
                     </label>
                   </Col>
                   <Col sm="5">
                     <InputGroup>
-                      <Input type="text"
-                       value={this.state.Password}  
-                       onChange={this.onChangePassword} />
+                      <Input
+                        type="text"
+                        // value={this.state.Password}
+                        onChange={this.onChangePassword}
+                        placeholder="Nouveau mot de passe"
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
-                          <i
-                            aria-hidden={true}
-                            className="nc-icon nc-key-25"
-                          />
+                          <i aria-hidden={true} className="nc-icon nc-key-25" />
                         </InputGroupText>
                       </InputGroupAddon>
                     </InputGroup>
@@ -241,9 +291,11 @@ Password:""
                   </Col>
                   <Col sm="5">
                     <InputGroup>
-                      <Input   value={this.state.Post}  
-                       onChange={this.onChangePoste} 
-                       type="text" />
+                      <Input
+                        value={this.state.Post}
+                        onChange={this.onChangePoste}
+                        type="text"
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
                           <i aria-hidden={true} className="nc-icon nc-bank" />
@@ -261,7 +313,11 @@ Password:""
                   </Col>
                   <Col sm="5">
                     <InputGroup>
-                      <Input placeholder="Agence" type="text" />
+                      <Input
+                        type="text"
+                        value={this.state.Agence}
+                        onChange={this.onChangeAgence}
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
                           <i aria-hidden={true} className="nc-icon nc-bank" />
@@ -274,15 +330,22 @@ Password:""
                 <Row>
                   <Col sm="4">
                     <label style={{ color: "white", fontWeight: "500" }}>
-                      RIB{" "}
+                      RIB
                     </label>
                   </Col>
                   <Col sm="5">
                     <InputGroup>
-                      <Input placeholder="RIB ..." type="text" />
+                      <Input
+                        type="text"
+                        value={this.state.RIB}
+                        onChange={this.onChangeRIB}
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
-                          <i aria-hidden={true} className="nc-icon nc-bank" />
+                          <i
+                            aria-hidden={true}
+                            className="nc-icon nc-single-copy-04"
+                          />
                         </InputGroupText>
                       </InputGroupAddon>
                     </InputGroup>
@@ -297,7 +360,12 @@ Password:""
                   </Col>
                   <Col sm="5">
                     <InputGroup>
-                      <Input placeholder="Numéro téléphonique" type="number" />
+                      <Input
+                        placeholder="Numéro téléphonique"
+                        type="number"
+                        value={this.state.Numero_telephonique}
+                        onChange={this.onChangeNumero_telephonique}
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
                           <i
@@ -318,7 +386,12 @@ Password:""
                   </Col>
                   <Col sm="5">
                     <InputGroup>
-                      <Input placeholder="Etat matrimoniale" type="text" />
+                      <Input
+                        placeholder="Etat matrimoniale"
+                        type="text"
+                        value={this.state.Etat_matrimoniale}
+                        onChange={this.onChangeEtat_matrimoniale}
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
                           <i
@@ -339,7 +412,12 @@ Password:""
                   </Col>
                   <Col sm="5">
                     <InputGroup>
-                      <Input placeholder="Nbre enfants" type="number" />
+                      <Input
+                        placeholder="Nbre enfants"
+                        type="number"
+                        value={this.state.Nbre_enfants}
+                        onChange={this.onChangeNbre_enfants}
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
                           <i aria-hidden={true} className="nc-icon nc-badge" />
@@ -349,6 +427,44 @@ Password:""
                   </Col>
                 </Row>
                 <br />
+                <Row>
+                <Col sm="4">
+                    <label style={{ color: "white", fontWeight: "500" }}>
+                    Extraits de naissances
+                    </label>
+                  </Col>
+                  <Col sm="5">
+                  <InputGroup> 
+                  <div className="dropbox" style={{
+                     backgroundColor : "white",
+                     borderRadius: "5%"
+                  }}>
+                {
+                  <Upload.Dragger
+                    name="files"
+                    action="/upload.do"
+                    listType="picture"
+                  >
+                    <p className="ant-upload-drag-icon">
+                      <Icon type="inbox" />
+                    </p>
+                    <p className="ant-upload-text" style={{
+                    color : "black",
+                    fontWeight: "500",
+                    fontfamily: "Georgia",
+                  }}>
+                     Cliquez ou faites glisser le fichier dans cette zone pour le télécharger
+                    </p>
+                  </Upload.Dragger>
+                  }
+                  </div>
+                  <InputGroupAddon addonType="append">
+                       
+                      </InputGroupAddon>
+                      </InputGroup>
+  
+                  </Col>
+                </Row>
                 <br />
                 <Row align="middle">
                   <Col sm="3"></Col>
