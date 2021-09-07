@@ -12,15 +12,15 @@ const env = require('dotenv');
 // Update Personel
 router.put('/update-personel/:id', async(req,res)=>{
     bcrypt.hash(req.body.Password, saltRounds, async (error, hash)=>{
-        if (error) {
-            console.log(error);
-            res.status(500).json({message: 'Server error!'});
-        }else{
+  //      if (error) {
+  //          console.log(error);
+ //           res.status(500).json({message: 'Server error!'});
+  //      }else{
             req.body.Password = hash;
             req.body.Valide = true;
             const updatePersonel = await Personel.findByIdAndUpdate(req.params.id, req.body, {new: true});
             res.json(updatePersonel);
-        };
+  //      };
     })
 });
 
@@ -52,4 +52,10 @@ router.get('/logout', (req, res) => {
 });
 
 
+router.route("/:id").get((req, res) => {
+    Personel.findById(req.params.id)
+      .then((personnel) => res.json(personnel))
+      .catch((err) => res.status(400).json("Error: " + err));
+  });
+  
 module.exports = router 
