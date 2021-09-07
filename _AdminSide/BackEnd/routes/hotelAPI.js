@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Hotel = require('../models/hotelSchema');
+const Reservation = require('../models/reservationSchema')
 const passport = require('passport');
 const nodemailer = require("nodemailer");
 const env = require('dotenv');
@@ -50,10 +51,35 @@ router.put('/update-hotel/:id', upload.single('Image'), async(req,res)=>{
     res.json(updateHotel);    
 });
 
-// Delete Personel
+// Delete Hotel
 router.delete('/delete-hotel/:id', async(req,res)=>{
     const deleteHotel = await Personel.findByIdAndDelete(req.params.id);
     res.json({message: 'Supprimé avec succés! '});
 })
+
+router.get('/reservation-list', async(req,res)=>{
+    const reservationsList = await Hotel.findById(Hotel._id).populate("reservations");
+    res.json(reservationsList.Reservations);
+});
+
+router.put('/accept-reservation/:id', async(req,res)=>{
+    const reservation = await Reservation.findOne({_id:req.params.id});
+    const HotelFound = await Hotel.findOne({_id: reservation.HotelID});
+    const PlacesRestantes = HotelFound.Places - reservation.NombreReservation;
+    const acceptReservation = await Hotel.findByIdAndUpdate(HotelFound._id, {Places: PlacesRestantes},{new: true});
+    const changeEtat = await Reservation.findByIdAndUpdate(req.params.id, { Etat :true },{new: true});
+    /* 
+        Send Mail about accepting reservation
+    */
+    res.json({message: 'Reservation accepted! '});
+});
+
+router.put('/refuse-reservation/:id', async(req,res)=>{
+    const refuseReservation = await Reservation.findByIdAndUpdate(req.params.id,{Etat: false},{new: true});
+    /* 
+        Send Mail about refusing reservation
+    */
+    res.json({message: 'Reservation refused! '});
+});
 
 module.exports = router;
