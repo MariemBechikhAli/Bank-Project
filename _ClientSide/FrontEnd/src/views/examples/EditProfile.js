@@ -162,7 +162,7 @@ class EditProfile extends Component {
               <img
                 style={{ borderRadius: "10px" }}
                 width="550px"
-                height="650px"
+                height="900px"
                 src={land}
                 alt="Bank"
               />
@@ -437,7 +437,8 @@ class EditProfile extends Component {
                   <InputGroup> 
                   <div className="dropbox" style={{
                      backgroundColor : "white",
-                     borderRadius: "5%"
+                     borderRadius: "5%",
+                     lineHeight: "1.5"
                   }}>
                 {
                   <Upload.Dragger
