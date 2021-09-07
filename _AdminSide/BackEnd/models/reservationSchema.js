@@ -6,7 +6,7 @@ const Reservation = mongoose.Schema({
     DerniereReservation: { type: String, required:true },
     NombreReservation: { type: Number, required:true},
     Etat: { type: String, default:'Non traitée'},
-    HotelID : {type: String, required:true }
+    HotelID : {type: String  }
 },
     {
         versionKey: false,
