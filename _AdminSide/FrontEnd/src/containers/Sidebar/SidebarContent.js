@@ -64,6 +64,24 @@ class SidebarContent extends Component {
                     </Link>
                   
                 </Menu.Item>
+                <SubMenu key="Gestion des Hotels" className={this.getNavStyleSubMenuClass(navStyle)}
+                         title={"Gestion des Hotels"}>
+                  <Menu.Item key="main/dashboard/crypto">
+                    <Link to="/main/dashboard/crypto">
+                      <i className="icon icon-crypto"/>
+                      <IntlMessages id="Faire une reservation"/>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="main/dashboard/crm">
+                    <Link to="/hotels/hotels-list">
+                      <i className="icon icon-crm"/>
+                      <IntlMessages id="Liste des reservations"/>
+                    </Link>
+                  </Menu.Item>
+                 
+                  
+                </SubMenu>
+
                 <SubMenu key="Gestion des evennements" className={this.getNavStyleSubMenuClass(navStyle)}
                          title={"Gestion des evennements"}>
                   <Menu.Item key="main/dashboard/crypto">
@@ -81,24 +99,7 @@ class SidebarContent extends Component {
                  
                   
                 </SubMenu>
-                <SubMenu key="Gestion des Hotels" className={this.getNavStyleSubMenuClass(navStyle)}
-                         title={"Gestion des Hotels"}>
-                  <Menu.Item key="main/dashboard/crypto">
-                    <Link to="/main/dashboard/crypto">
-                      <i className="icon icon-crypto"/>
-                      <IntlMessages id="Faire une reservation"/>
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="main/dashboard/crm">
-                    <Link to="/main/dashboard/crm">
-                      <i className="icon icon-crm"/>
-                      <IntlMessages id="Liste des reservations"/>
-                    </Link>
-                  </Menu.Item>
-                 
-                  
-                </SubMenu>
-
+             
               
               </MenuItemGroup>
 

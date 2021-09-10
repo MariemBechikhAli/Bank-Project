@@ -10,6 +10,7 @@ import SocialApps from "./socialApps/index";
 import Main from "./main/index";
 import Documents from "./documents/index";
 import UsersViews from "./UserUI";
+import HotelViews from "./HotelUI"
 
 const App = ({match}) => (
   <div className="gx-main-content-wrapper">
@@ -23,6 +24,7 @@ const App = ({match}) => (
       <Route path={`${match.url}social-apps`} component={SocialApps}/>
       <Route path={`${match.url}documents`} component={Documents}/>
       <Route path={`${match.url}users`} component={UsersViews}/>
+      <Route path={`${match.url}hotels`} component={HotelViews}/>
 
     </Switch>
   </div>
