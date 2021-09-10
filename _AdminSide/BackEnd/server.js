@@ -19,7 +19,7 @@ app.use(bodyParser.json({limit: "52428800"}));
 app.use(bodyParser.urlencoded({limit: "52428800", extended: true, parameterLimit:50000}));
 app.use(express.json());
 app.use(express.json({ extended: false }));
-
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 //routes
 const Personel = require('./routes/personelAPI');
 const Hotel = require('./routes/hotelAPI')

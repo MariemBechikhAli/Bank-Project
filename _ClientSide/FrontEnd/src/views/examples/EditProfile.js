@@ -46,7 +46,7 @@ class EditProfile extends Component {
   }
   componentDidMount() {
     axios
-      .get(`http://localhost:6001/clientSide/61376beaf659998b1d5ff740`)
+      .get(`http://localhost:6001/clientSide/6139d418108c9e427e78c1d1`)
       //,this.props.match.params.id)
 
       .then((response) => {
@@ -140,7 +140,7 @@ class EditProfile extends Component {
     console.log(personnel);
     axios
       .put(
-        "http://localhost:6001/clientSide/update-personel/61376beaf659998b1d5ff740",
+        "http://localhost:6001/clientSide/update-personel/6139d418108c9e427e78c1d1",
         personnel
       )
       .then((res) => console.log("Updated succssefuly ! " + res.data));

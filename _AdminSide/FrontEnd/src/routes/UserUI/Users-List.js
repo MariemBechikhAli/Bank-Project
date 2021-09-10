@@ -4,6 +4,7 @@ import {
   notification, message, Popconfirm
 } from "antd";
 import axios from "axios";
+
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const formItemLayout = {
@@ -154,7 +155,7 @@ class UsersList extends Component {
         axios.post('http://localhost:5001/adminSide/addPersonel', PERS)
           .then(res => console.log(res.data));
         this.openNotificationWithIcon("success");
-        window.location.reload();
+        this.props.history.push("/users/users-list");
       }
     });
 

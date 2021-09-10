@@ -53,7 +53,7 @@ router.put('/update-hotel/:id', upload.single('Image'), async(req,res)=>{
 
 // Delete Hotel
 router.delete('/delete-hotel/:id', async(req,res)=>{
-    const deleteHotel = await Personel.findByIdAndDelete(req.params.id);
+    const deleteHotel = await Hotel.findByIdAndDelete(req.params.id);
     res.json({message: 'Supprimé avec succés! '});
 })
 
