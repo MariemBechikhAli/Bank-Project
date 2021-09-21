@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   Button,
   Card,
-  Tag,
   Divider,
   Form,
   Icon,
@@ -11,14 +10,15 @@ import {
   notification,
   message,
   Popconfirm,
-  Col,
-  Row,
-  Spin,
-  Rate
+  Rate,
+  Upload
 } from "antd";
 import axios from "axios";
 import CircularProgress from "components/CircularProgress/index";
 import star from "../../assets/images/star.svg.png";
+import { relativeTimeThreshold } from "moment";
+import { Link } from "react-router-dom";
+import IntlMessages from "../../util/IntlMessages";
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -87,8 +87,10 @@ const Hotel = props => (
         <p></p>
       )}*/}
     </td>
-    <td className="ant-table-row-cell-break-word" align="center" width="150">
-      {props.hotel.NOM}
+    <td className="ant-table-row-cell-break-word" align="center" width="150">  
+      <Link to="/hotels/details-hotel">
+                      <IntlMessages id={props.hotel.NOM}/>
+                    </Link>
     </td>
     <td className="ant-table-row-cell-break-word" align="center" width="100">
       {props.hotel.Emplacement}
@@ -147,6 +149,7 @@ class HotelsList extends Component {
     this.onChangePlaces = this.onChangePlaces.bind(this);
     this.onChangePrix = this.onChangePrix.bind(this);
     this.onChangeLien = this.onChangeLien.bind(this);
+    this.onChangeFile = this.onChangeFile.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.deleteHotel = this.deleteHotel.bind(this);
     this.state = {
@@ -157,7 +160,8 @@ class HotelsList extends Component {
       Places: "",
       Prix: "",
       Lien: "",
-      isLoading: true
+      isLoading: true,
+      originalname: ""
     };
   }
   componentDidMount() {
@@ -228,6 +232,11 @@ class HotelsList extends Component {
       Lien: e.target.value
     });
   }
+  onChangeFile(e) {
+    this.setState({
+      originalname: e.target.files[0]
+    });
+  }
   openNotificationWithIcon = type => {
     notification[type]({
       message: "Hotel ajoué avec succés"
@@ -238,17 +247,24 @@ class HotelsList extends Component {
     this.props.form.validateFields((err, values) => {
       console.log("values", values);
       if (!err) {
-        const hotel = {
-          Etoiles: this.state.Etoiles,
-          NOM: this.state.NOM,
-          Emplacement: this.state.Emplacement,
-          Places: this.state.Places,
-          Prix: this.state.Prix,
-          Lien: this.state.Lien
+        const formData = new FormData();
+
+        formData.append("Etoiles", this.state.Etoiles);
+        formData.append("NOM", this.state.NOM);
+        formData.append("Emplacement", this.state.Emplacement);
+        formData.append("Places", this.state.Places);
+        formData.append("Prix", this.state.Prix);
+        formData.append("Lien", this.state.Lien);
+        formData.append("Photo", this.state.originalname);
+
+        console.log(formData);
+        const config = {
+          headers: {
+            "content-type": "multipart/form-data"
+          }
         };
-        console.log(hotel);
         axios
-          .post("http://localhost:5001/adminSide/addHotel", hotel)
+          .post("http://localhost:5001/adminSide/addHotel",  formData, config)
           .then(res => console.log(res.data));
         this.openNotificationWithIcon("success");
         this.props.history.push("/hotels/hotels-list");
@@ -279,7 +295,7 @@ class HotelsList extends Component {
           <Icon type={this.state.expand ? "up" : "down"} />
         </Button>
         <div id="user" style={{ display: "none" }}>
-          <Form onSubmit={this.onSubmit}>
+          <Form onSubmit={this.onSubmit}  encType="multipart/form-data">
             <Form.Item {...formItemLayout}
               label="Etoiles"
               hasFeedback
@@ -383,6 +399,31 @@ class HotelsList extends Component {
                   }
                 ]
               })(<Input placeholder="Lien" style={{ width: "50%" }} />)}
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="Screenshot"
+              onChange={this.onChangeFile}
+            >
+              <div className="dropbox">
+                {
+                  <Upload.Dragger
+                    name="files"
+                    action="/upload.do"
+                    listType="picture"
+                  >
+                    <p className="ant-upload-drag-icon">
+                      <Icon type="inbox" />
+                    </p>
+                    <p className="ant-upload-text">
+                      Click or drag file to this area to upload
+                    </p>
+                    <p className="ant-upload-hint">
+                      Support for a single or bulk upload.
+                    </p>
+                  </Upload.Dragger>
+                }
+              </div>
             </FormItem>
           </Form>
 

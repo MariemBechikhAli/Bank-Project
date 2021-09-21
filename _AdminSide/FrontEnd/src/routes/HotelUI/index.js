@@ -5,6 +5,7 @@ const HotelViews = ({match}) => (
   <Switch  >
     <Redirect exact from={`${match.url}/`} to={`${match.url}/hotels`}/>
     <Route path={`${match.url}/hotels-list`} component={asyncComponent(() => import('./Hotels-List'))}/>
+    <Route path={`${match.url}/details-hotel`} component={asyncComponent(() => import('./DetailsHotel'))}/>
    
 
   </Switch>
