@@ -5,38 +5,45 @@ const Reservation = require('../models/reservationSchema')
 const passport = require('passport');
 const nodemailer = require("nodemailer");
 const env = require('dotenv');
-const multer = require('multer')
+const multer = require("multer");
 
-const myStorage = multer.diskStorage({
-    destination: (req,file,cb) => {
-        const folder = path.resolve('./telechargements');
-        cb(null,folder);
+var myStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null,"../FrontEnd/public/HotelImages");
     },
-    filename: async(req,file,cb) => {
-        const extension = path.extname(file.originalname) ;
-        const newFileName = Date.now() + extension;
-        await Hotel.findByIdAndUpdate(req.params.id,{Image: newFileName},{new:true})
-        cb(null,newFileName);
+    filename: (req, file, cb) => {
+      cb(null, "Hotel--" + file.originalname);
     },
-    
-});
-const fileFilter = (req, file, cb) => {
-    const allowedFileExtensions = ['.png','.jpeg','.jpg']
-    const extension = path.extname(file.originalname) ;
-    cb(null, allowedFileExtensions.includes(extension));
-}
+  });
+
+ // var upload = multer({ storage: storage });
 const upload = multer({ 
     storage: myStorage,
-    fileFilter: fileFilter,
     limits:{
         fileSize: 52428800,
     },
 });
 
 //Add Hotel
-router.post('/addHotel', async (req, res) => {
-    const createHotel = await Hotel.create(req.body);
-    res.json({message: 'Hotel created!'})
+router.post('/addHotel',upload.single("Photo"), async (req, res) => {
+    try{
+    const newHotel = new Hotel({
+        NOM: req.body.NOM,
+        question_date: new Date(),
+        Emplacement: req.body.Emplacement,
+        DateDebut: req.body.DateDebut,
+        Photo: req.file.originalname,
+        Places:req.body.Places,
+        Lien:req.body.Lien,
+        Etoiles:req.body.Etoiles,
+        Prix:req.body.Prix
+      });
+    const hotel = await newHotel.save();
+    res.json(hotel);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 // Get Hotel List

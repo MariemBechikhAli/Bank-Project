@@ -7,7 +7,7 @@ const Hotel = mongoose.Schema({
     Places: { type: Number, required:true},
     Etoiles: { type: Number, required: true },
     Prix: { type: Number, required: true },
-    Image: { type: String, required: false },
+    Photo: { type: String, required: false },
     Lien: { type: String, required: true },
     Reservations:[
         {

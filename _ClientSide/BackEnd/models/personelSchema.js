@@ -10,7 +10,8 @@ const Personel = mongoose.Schema({
     Nbre_enfants: { type: String, default: '' },
     Etat_matrimoniale: { type: String, default: '' },
     Agence: { type: String, default: '' },
-    Valide: { type: Boolean, default: false }
+    Valide: { type: Boolean, default: false },
+    Enfant: { type:Array}
 },
 {
     versionKey: false,
